@@ -3663,7 +3663,7 @@ namespace ClosedXML.Excel
             else
                 defaultFormatId = 0;
 
-            context.SharedStyles.Add(defaultStyle,
+            context.SharedStyles[defaultStyle] =
                 new StyleInfo
                 {
                     StyleId = defaultFormatId,
@@ -3674,7 +3674,7 @@ namespace ClosedXML.Excel
                     IncludeQuotePrefix = false,
                     NumberFormatId = 0
                     //AlignmentId = 0
-                });
+                };
 
             UInt32 styleCount = 1;
             UInt32 fontCount = 1;
@@ -3757,7 +3757,8 @@ namespace ClosedXML.Excel
             var allSharedNumberFormats = ResolveNumberFormats(workbookStylesPart, sharedNumberFormats, defaultFormatId);
             foreach (var nf in allSharedNumberFormats)
             {
-                context.SharedNumberFormats.Add(nf.Value.NumberFormatId, nf.Value);
+                if (!context.SharedNumberFormats.ContainsKey(nf.Value.NumberFormatId))
+                    context.SharedNumberFormats.Add(nf.Value.NumberFormatId, nf.Value);
             }
 
             ResolveFonts(workbookStylesPart, context);
