@@ -84,6 +84,8 @@ namespace ClosedXML.Excel
         /// </value>
         Boolean ShareString { get; set; }
 
+        string InnerText { get; }
+
         IXLSparkline Sparkline { get; }
 
         /// <summary>
